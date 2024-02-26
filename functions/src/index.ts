@@ -52,3 +52,30 @@ async function matchingOffers(params: OfferOptions): Promise<Array<Offer>> {
   return matched;
 }
 
+export const offers = https.onRequest(async (req, res) => {
+  const {riderId, maxDistance, isAuthorizedToCompete, horseBreed, maxPrice, minDuration, maxWalkingDistance} = req.body;
+  if (!riderId) {
+    res.status(400).send("An ID is required to find matching offers.");
+    return;
+  }
+
+  const params: OfferOptions = {
+    riderId,
+    maxDistance: maxDistance ? parseInt(maxDistance) : undefined,
+    isAuthorizedToCompete: isAuthorizedToCompete ? Boolean(isAuthorizedToCompete) : undefined,
+    horseBreed,
+    maxPrice: maxPrice ? parseInt(maxPrice) : undefined,
+    minDuration: minDuration ? parseInt(minDuration) : undefined,
+    maxWalkingDistance: maxWalkingDistance ? parseInt(maxWalkingDistance) : undefined,
+  };
+
+  console.log(params); // TODO: Remove this line after testing
+
+  try {
+    const offers = await matchingOffers(params);
+    res.status(200).send(offers);
+  } catch (e) {
+    logger.error(e); // TODO: Remove this line after testing
+    res.status(500).send(e);
+  }
+});
