@@ -25,10 +25,13 @@ For more details on how the matching algorithm was imagined, please refer to the
 
 ## Usage
 
+You can try by yourself the API from Insomnia or Postman as the API is hosted.
+Here is the API link: [https://offers-itv4wefyzq-uc.a.run.app](https://offers-itv4wefyzq-uc.a.run.app)
+
 ### Matching Offers
 
 - The system exposes a Cloud Function endpoint to find matching offers based on the rider's preferences.
-- Send a **GET** or **POST** request to the deployed Cloud Function URL with the rider's preferences in the body:
+- Send a **POST** request to the deployed Cloud Function URL with the rider's preferences in the body:
 
 ```json
 {
